@@ -1,0 +1,59 @@
+
+#### Wstęp
+
+Dotychczasowa charakterystyka różnic epigenetycznych między populacjami łowiecko-zbierackimi ($\text{HG}$) a rolniczymi ($\text{AGR}$) opiera się przede wszystkim na analizie jednej pary populacji z jednego regionu — afrykańskich łowców-zbieraczy lasu deszczowego oraz sąsiadujących z nimi rolników [@fagny2015epigenomic]. Oparcie referencyjnych sygnatur metylacji na pojedynczej parze populacji wiąże się z dwoma istotnymi ograniczeniami.
+
+Po pierwsze, mała liczba niezależnych populacji ogranicza moc statystyczną i wiarygodność identyfikowanych miejsc różnicowo metylowanych ($\text{DMS}$). Po drugie, różnice obserwowane między jedną parą $\text{HG}/\text{AGR}$ mogą być zaburzane przez pochodzenie genetyczne, lokalną historię demograficzną oraz specyfikę środowiska, w tym klimat lasu równikowego. W takim układzie trudno rozstrzygnąć, czy wykryty sygnał odzwierciedla rzeczywisty efekt trybu życia, czy raczej lokalną różnicę typu „populacja A vs. populacja B”.
+
+Rozwiązaniem tego problemu jest włączenie wielu niezależnych par $\text{HG}/\text{AGR}$ pochodzących z różnych kontynentów i stref klimatycznych. Sygnatury epigenetyczne powtarzalne w wielu takich porównaniach z dużo większym prawdopodobieństwem będą odzwierciedlały uniwersalny komponent związany z trybem życia, a nie lokalne uwarunkowania genetyczne, demograficzne lub środowiskowe.
+
+> #TODO_6 - Marcin - pewnie będą potrzebne jeszcze propozycje konkretnych populacji tutaj.
+
+#### Procedura
+
+##### Metodologia do DNA z populacji dzisiejszych
+
+1. **Pozyskanie próbek**
+   - **Tkanka**: krew obwodowa (DNA z leukocytów) — standard w badaniach metylacji populacyjnej i źródło danych referencyjnych [@fagny2015epigenomic]. Uwaga: aDNA rekonstruujemy z kości — różnicę tkankową trzeba korygować.
+   - **Liczebność**: dążyć do $\ge \sim 50\text{–}100$ osób na populację (rząd wielkości jak w literaturze), zbalansowane między parą HG/AGR.
+   - **Kryteria włączenia**: dorośli, znany wiek i płeć, brak bliskiego pokrewieństwa, bez ostrej infekcji w chwili poboru.
+   - **Etyka**: świadoma zgoda i zasady suwerenności danych społeczności (CARE/OCAP) — warunek konieczny.
+   - **Metadane**: wiek, płeć, region, dieta/tryb życia — potrzebne jako współzmienne w modelu DMS.
+
+2. **Ekstrakcja i kontrola jakości DNA**
+   - Izolacja genomowego DNA standardowym protokołem (np. kolumienki krzemionkowe).
+   - Kontrola ilości (fluorymetria, np. Qubit) i integralności (elektroforeza); minimalny wkład zwykle $\ge 250\text{–}500$ ng na próbkę.
+
+3. **Konwersja dwusiarczynowa (bisulfite conversion)**
+   - Kluczowy krok kodujący metylację chemicznie, przed odczytem na macierzy:
+     - niemetylowana cytozyna $\rightarrow$ uracyl $\rightarrow$ (po PCR) tymina,
+     - metylowana 5mC pozostaje cytozyną.
+   - Dzięki temu stan metylacji zamienia się w różnicę sekwencji C/T, którą odczytuje mikromacierz. Stosować zestaw o wysokiej wydajności konwersji ($\geq; \sim 99\%$); zalecane powtórzenia techniczne do oceny powtarzalności.
+
+> #TODO - Paulina - dopisanie dokładne metodologi do konca (metodologia tych badań które byly wykorzystane do autochtonów afrykańskich)z
+> #TODO - Paulina to można rozibć na pojedyncze fragmenty:
+<!-- > 
+> ##### Konwersja dwusiarczynowa (Bisulfite Conversion)
+> ##### Przetwarzanie i normalizacja danych mikromacierzowych
+> ##### Identyfikacja miejsc różnicowo zmetylowanych (DMS)
+> ##### Analiza funkcjonalna i ontologia genów -->
+
+##### Konwersja dwusiarczynowa (Bisulfite Conversion)
+
+Chemiczne znakowanie stanu metylacji przed analizą mikromacierzową realizowane jest poprzez konwersję w oparciu o następujący schemat reakcji:
+- Niemetylowana cytozyna ($C$) ulega deaminacji do uracylu ($U$), a następnie podczas matrycowej reakcji $\text{PCR}$ ulega substytucji w tyminę ($T$).
+- Metylowana cytozyna ($5\mathrm{mC}$) pozostaje odporna na działanie wodorosiarczynu, zachowując swoją tożsamość jako cytozyna ($C$).
+
+Wydajność konwersji chemicznej musi wynosić $> 99\%$. W celu empirycznej weryfikacji powtarzalności technicznej procedury stosuje się replikaty techniczne.
+
+##### Analiza danych o metylacji DNA
+
+Próbki należy poddać hybrydyzacji przy użyciu mikromacierzy HumanMethylation450, dla próbek i powtórzeń technicznych. Następnie wyeliminować sondy, które mogą ulec hybrydyzacji krzyżowej, te znajdujące się na chromosomach X i Y oraz sondy zawierające SNP lub powiązane z CpG zawierającymi SNP, których częstotliwość przekracza 1% w co najmniej jednej z badanych populacji. Po tym procesie filtrowania poziom metylacji można obliczyć na podstawie surowych danych, korzystając na przykład z pakietu R Bioconductor `lumi`. Należy wybrać, czy lepiej nada się wartość M, czy beta, sprawdzając, która z nich da lepszą czułość [@du2010comparison]. Wybraną wartość należy skorygować pod kątem tła i odchylenia za pomocą np. `lumi` i znormalizować kwantylowo. Różnice techniczne można skorygować normalizując wybraną wartość w ramach macierzy przy użyciu podzbiorów kwantylowych za pomocą pakietu R Bioconductor `minfi`. Analizą PCA można wykryć batch-effect, do skorygowania czego można wykorzystać funkcję `ComBat` z pakietu `sva` bioconductor.
+
+##### Określenie miejsc o zróżnicowanym stopniu metylacji - DMS
+
+Określenie tych miejsc między populacjami należy zmodyfikować statystycznie poprzez dopasowanie modelu regresji liniowej dla każdego miejsca (wartości M: populacja x płeć x wiek x proporcje typów komórek x błąd) oraz zastosować wygładzenie empiryczne Bayesa do odchylenia standardowego przy użyciu np. pakietu `limma` w bibliotece R bioconductor. Miejsca o skorygowanej wartości P poniżej 0,01 według Benjamini i Hochberga uznaje się za różnicowo metylowane. Aby zdefiniować amplitudę DMS, stosuje się różne kryteria: skorygowaną wartość P poniżej 0,01 według Benjamini i Hochberga oraz różnicę w średnim poziomie metylacji między dwiema populacjami wynoszącą ponad 2, 5 lub 10%. W tego typu analizie poziom metylacji określa się jako stosunek intensywności sygnału z sondy metylowanej do intensywności ogólnej, czyli wartość beta. Należy wyodrębnić nakładające się fragmenty między różnymi zestawami DMS i obliczyć wartości P mierzące prawdopodobieństwo uzyskania tych nakładających się fragmentów przez przypadek, stosując ponowne próbkowanie. Poziomy metylacji DNA in docelowych miejscach są silnie skorelowane w obrębie regionów n o określonej wielkości (około 2000 pz). W związku z tym dla każdej listy DMS losowo pobiera się ponownie taką samą liczbę miejsc spośród wszystkich miejsc, biorąc pod uwagę odległość między DMS.
+
+##### Funkcje biologiczne genów o zróżnicowanym stopniu metylacji
+
+Należy wyodrębnić wszystkie geny o zróżnicowanym stopniu metylacji, czyli geny posiadające co najmniej jeden DMS. Do tego celu można wykorzystać pakiet `goseq` z biblioteki R Bioconductor do przeprowadzenia analizy nadreprezentacji kategorii ontologii genów wśród genów o zróżnicowanym stopniu metylacji. Liczbę sond odpowiadających jednemu genowi wprowadza się do funkcji ważenia prawdopodobieństwa pakietu `goseq`. Ponieważ nie wszystkie geny genomu są reprezentowane na chipie Illumina HumanMethylation450 BeadChip, zestaw referencyjny w analizie nadreprezentacji będzie składał się z genów, dla których dostępne są dane. Zbiory DMS będą istotnie wzbogacone w danej kategorii, jeśli wartość P skorygowana o FDR wyniesie maksymalnie 0,05.

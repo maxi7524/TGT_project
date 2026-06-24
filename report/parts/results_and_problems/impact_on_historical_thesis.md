@@ -1,0 +1,1 @@
+W przypadku znalezienia charakterystycznych różnic, będzie trzeba znacząco przeformułować niektóre tezy, w szczególności zmienić datowanie opisujące przejście pomiędzy okresem HG i AGR w okresie mezolitu, ponieważ metoda pozwoli nam na dokładniejsze określenie zmian.
