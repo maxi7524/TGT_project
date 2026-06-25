@@ -14,8 +14,8 @@ Rozwiązaniem tego problemu jest włączenie wielu niezależnych par $\text{HG}/
 ##### Metodologia do DNA z populacji dzisiejszych
 
 1. **Pozyskanie próbek**
-   - **Tkanka**: krew obwodowa (DNA z leukocytów) — standard w badaniach metylacji populacyjnej i źródło danych referencyjnych [@fagny2015epigenomic]. Uwaga: aDNA rekonstruujemy z kości — różnicę tkankową trzeba korygować.
-   - **Liczebność**: dążyć do $\ge \sim 50\text{–}100$ osób na populację (rząd wielkości jak w literaturze), zbalansowane między parą HG/AGR.
+   - **Tkanka**: materiał kostny pozyskany w trakcie przeprowadzania procedur medycznych
+   - **Liczebność**: 1-2% osób na populację
    - **Kryteria włączenia**: dorośli, znany wiek i płeć, brak bliskiego pokrewieństwa, bez ostrej infekcji w chwili poboru.
    - **Etyka**: świadoma zgoda i zasady suwerenności danych społeczności (CARE/OCAP) — warunek konieczny.
    - **Metadane**: wiek, płeć, region, dieta/tryb życia — potrzebne jako współzmienne w modelu DMS.
@@ -49,6 +49,10 @@ Wydajność konwersji chemicznej musi wynosić $> 99\%$. W celu empirycznej wery
 ##### Analiza danych o metylacji DNA
 
 Próbki należy poddać hybrydyzacji przy użyciu mikromacierzy HumanMethylation450, dla próbek i powtórzeń technicznych. Następnie wyeliminować sondy, które mogą ulec hybrydyzacji krzyżowej, te znajdujące się na chromosomach X i Y oraz sondy zawierające SNP lub powiązane z CpG zawierającymi SNP, których częstotliwość przekracza 1% w co najmniej jednej z badanych populacji. Po tym procesie filtrowania poziom metylacji można obliczyć na podstawie surowych danych, korzystając na przykład z pakietu R Bioconductor `lumi`. Należy wybrać, czy lepiej nada się wartość M, czy beta, sprawdzając, która z nich da lepszą czułość [@du2010comparison]. Wybraną wartość należy skorygować pod kątem tła i odchylenia za pomocą np. `lumi` i znormalizować kwantylowo. Różnice techniczne można skorygować normalizując wybraną wartość w ramach macierzy przy użyciu podzbiorów kwantylowych za pomocą pakietu R Bioconductor `minfi`. Analizą PCA można wykryć batch-effect, do skorygowania czego można wykorzystać funkcję `ComBat` z pakietu `sva` bioconductor.
+
+##### Kontrola jakości
+Dla porównania skuteczności, zostanie dodatkowo przeprowadzona analiza wykorzystująca sztucznie zanieczyszczone i pofragmentowane sekwencje współczesne, symulujące aDNA. 
+Przygotowane dane zostaną poddane ocenie jakości przy wykorzystaniu programu FastQC. Ewentualne filtrowanie i przycinanie sekwencji o zbyt niskiej jakości zostanie przeprowadzone wykorzystując program fastp. Odczyty zostaną zmapowane do genomu referencyjnego człowieka (GRCh37/hg19) programem BWA. Obce sekwencje usunięte zostaną narzędzeim BlobTools. 
 
 ##### Określenie miejsc o zróżnicowanym stopniu metylacji - DMS
 
