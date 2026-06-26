@@ -16,30 +16,23 @@ Rozwiązaniem tego problemu jest włączenie wielu niezależnych par $\text{HG}/
 1. **Pozyskanie próbek**
 
    - **Tkanka**: materiał kostny pozyskany w trakcie przeprowadzania procedur medycznych
-
    - **Liczebność**: 1-2% osób na populację
-   
-   - **Kryteria włączenia**: dorośli, znany wiek i płeć, brak bliskiego pokrewieństwa, bez ostrej infekcji w chwili poboru.
-   
-   - **Etyka**: świadoma zgoda i zasady suwerenności danych społeczności (CARE/OCAP) — warunek konieczny.
-   
-   - **Metadane**: wiek, płeć, region, dieta/tryb życia — potrzebne jako współzmienne w modelu DMS.
+   - **Kryteria włączenia**: dorośli, znany wiek i płeć, brak bliskiego pokrewieństwa, bez ostrej infekcji w chwili poboru
+   - **Etyka**: świadoma zgoda i zasady suwerenności danych społeczności (CARE/OCAP) — warunek konieczny
+   - **Metadane**: wiek, płeć, region, dieta/tryb życia — potrzebne jako współzmienne w modelu DMS
 
 
 2. **Ekstrakcja i kontrola jakości DNA**
 
-   - Izolacja genomowego DNA standardowym protokołem (np. kolumienki krzemionkowe).
-
-   - Kontrola ilości (fluorymetria, np. Qubit) i integralności (elektroforeza); minimalny wkład zwykle $\ge 250\text{–}500$ ng na próbkę.
+   - Izolacja genomowego DNA protokołem mogącym być również zastosowanym do izolacji DNA antycznego (kolumienki krzemionkowe z buforem zawierającym EDTA i proteinazę K [@rohland2007extraction])
+   - Kontrola ilości (fluorymetria) i integralności (elektroforeza); minimalny wkład zwykle $\ge 250\text{–}500$ ng na próbkę
 
 
 3. **Konwersja dwusiarczynowa (bisulfite conversion)**
 
-   - niemetylowana cytozyna $\rightarrow$ uracyl $\rightarrow$ (po PCR) tymina,
-
-   - metylowana 5mC pozostaje cytozyną.
-
-   - Dzięki temu stan metylacji zamienia się w różnicę sekwencji C/T, którą odczytuje mikromacierz. Stosować zestaw o wysokiej wydajności konwersji ($\geq; \sim 99\%$); zalecane powtórzenia techniczne do oceny powtarzalności.
+   - niemetylowana cytozyna $\rightarrow$ uracyl $\rightarrow$ (po PCR) tymina
+   - metylowana 5mC pozostaje cytozyną
+   - Dzięki temu stan metylacji zamienia się w różnicę sekwencji C/T. Stosować zestaw o wysokiej wydajności konwersji ($\geq; \sim 99\%$); zalecane powtórzenia techniczne do oceny powtarzalności.
 
 
 4. **Analiza danych o metylacji DNA**
@@ -48,8 +41,6 @@ Rozwiązaniem tego problemu jest włączenie wielu niezależnych par $\text{HG}/
 
 
 5. **Określenie miejsc o zróżnicowanym stopniu metylacji - DMS**
-
-   Określenie miejsc o zróżnicowanym stopniu metylacji - DMS
 
    Określenie tych miejsc między populacjami zostanie zmodyfikowane statystycznie poprzez dopasowanie modelu regresji liniowej dla każdego miejsca (wartości M: populacja x płeć x wiek x proporcje typów komórek x błąd) oraz zastosujemy wygładzenie empiryczne Bayesa do odchylenia standardowego (przy użyciu pakietu `limma` w bibliotece R bioconductor). Miejsca o skorygowanej wartości P poniżej 0,01 według Benjamini i Hochberga uznaje się za różnicowo metylowane. 
 
