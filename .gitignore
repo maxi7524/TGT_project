@@ -1,0 +1,50 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Quarto
+/.quarto/
+_site/
+_book/
+*_files/
+*_cache/
+/.quarto
+
+# Generated report output
+*.pdf
+*.html
+*.docx
+*.tex
+
+# LaTeX intermediates
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+
+# Python (analysis helpers / venvs)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Editor / OS
+*.swp
+*~
+.vscode/
+.idea/
