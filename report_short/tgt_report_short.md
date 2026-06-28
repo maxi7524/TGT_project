@@ -2,7 +2,7 @@
 title: "IDMSpHGiAGR"
 subtitle: "Identyfikacja DMS pomiędzy HG i AGR"
 author: "Grupa 4"
-date: "2026-06-24"
+date: "2026-06-28"
 format:
   pdf:
     toc: true
