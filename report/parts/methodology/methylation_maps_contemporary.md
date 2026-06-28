@@ -1,6 +1,6 @@
 #### Wstęp
 
-Celem tej części metodologii jest wygenerowanie genomowych map metylacji DNA dla współczesnych kohort referencyjnych o jednoznacznym trybie życia — populacji łowiecko-zbierackich (HG) oraz rolniczych (AGR). Mapy te stanowią sygnaturę odniesienia, na podstawie której w dalszej części (sekcja dotycząca miejsc różnicowo zmetylowanych, DMS) wyodrębniany jest komponent epigenetyczny związany z trybem życia, oraz punkt kalibracyjny dla map rekonstruowanych z materiału kopalnego.
+Celem tej części metodologii jest wygenerowanie genomowych map metylacji DNA dla współczesnych kohort referencyjnych o jednoznacznym trybie życia - populacji łowiecko-zbierackich (HG) oraz rolniczych (AGR). Mapy te stanowią sygnaturę odniesienia, na podstawie której w dalszej części wyodrębniany jest komponent epigenetyczny związany z trybem życia, oraz punkt kalibracyjny dla map rekonstruowanych z materiału kopalnego.
 
 Zgodnie z założeniem rozszerzenia analizy poza pojedynczą parę populacji afrykańskich [@fagny2015epigenomic], profilowanie obejmuje wiele niezależnych par HG/AGR z różnych kontynentów i stref klimatycznych, co zwiększa moc statystyczną oraz pozwala oddzielić uniwersalny efekt trybu życia od lokalnych uwarunkowań genetycznych, demograficznych i środowiskowych.
 
@@ -9,7 +9,7 @@ Zgodnie z założeniem rozszerzenia analizy poza pojedynczą parę populacji afr
 
 #### Procedura
 
-Proces obejmuje pozyskanie materiału i ekstrakcję DNA, enzymatyczną konwersję i przygotowanie bibliotek (EM-seq), wstępne przetwarzanie i mapowanie odczytów, ekstrakcję sygnału metylacji i budowę macierzy zliczeń CpG, a następnie filtrowanie oraz eksploracyjną kontrolę jakości. Poniżej opisano kolejne kroki potoku, zachowując strukturę analogiczną względem części dotyczącej map kopalnych — od doboru materiału, przez przygotowanie danych sekwencyjnych i właściwą rekonstrukcję sygnału metylacji, po przygotowanie macierzy wykorzystywanej w dalszej detekcji DMS.
+Proces obejmuje pozyskanie materiału i ekstrakcję DNA, enzymatyczną konwersję i przygotowanie bibliotek (EM-seq), wstępne przetwarzanie i mapowanie odczytów, ekstrakcję sygnału metylacji i budowę macierzy zliczeń CpG, a następnie filtrowanie oraz eksploracyjną kontrolę jakości. \
 
 
 ##### Pozyskanie materiału i ekstrakcja DNA
@@ -24,7 +24,7 @@ Do rozróżnienia cytozyn metylowanych i niemetylowanych stosujemy enzymatyczne 
 
 ##### Wstępne przetwarzanie odczytów i mapowanie do genomu referencyjnego
 
-Surowe odczyty poddaje się kontroli jakości oraz przycinaniu adapterów i zasad o niskiej jakości (`FastQC`, `fastp`), a następnie mapuje do ludzkiego genomu referencyjnego (hg19) z wykorzystaniem programu mapującego uwzględniającego konwersję (`Bismark` lub `BWA-Meth`), zorganizowanego w ramach zautomatyzowanego potoku `nf-core/methylseq` [@krueger2011bismark; @pedersen2014bwameth; @ewels2020nfcore]. Wybór genomu hg19 zapewnia spójność współrzędnych z mapami kopalnymi oraz z danymi referencyjnymi. Powstałe pliki BAM sortuje się, indeksuje i oczyszcza z duplikatów PCR przy użyciu `samtools`, a wynik można skontrolować wizualnie w przeglądarce **IGV**; zbiorcze raporty jakości z poszczególnych etapów agreguje się narzędziem `MultiQC` [@ewels2016multiqc].
+Surowe odczyty poddaje się kontroli jakości oraz przycinaniu adapterów i zasad o niskiej jakości (`FastQC`, `fastp`), a następnie mapuje do ludzkiego genomu referencyjnego (GRCh38) z wykorzystaniem programu mapującego uwzględniającego konwersję (`Bismark` lub `BWA-Meth`), zorganizowanego w ramach zautomatyzowanego potoku `nf-core/methylseq` [@krueger2011bismark; @pedersen2014bwameth; @ewels2020nfcore]. Wybór genomu GRCh38 zapewnia spójność współrzędnych z mapami kopalnymi oraz z danymi referencyjnymi. Powstałe pliki BAM sortuje się, indeksuje i oczyszcza z duplikatów PCR przy użyciu `samtools`, a wynik można skontrolować wizualnie w przeglądarce **IGV**; zbiorcze raporty jakości z poszczególnych etapów agreguje się narzędziem `MultiQC` [@ewels2016multiqc].
 
 ##### Ekstrakcja sygnału metylacji i budowa macierzy zliczeń CpG
 
