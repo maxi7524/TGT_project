@@ -17,7 +17,7 @@ Określenie miejsc o zróżnicowanym stopniu metylacji między populacjami opier
 
 $$\text{poziom metylacji}_{\text{CpG}} \sim \text{populacja} + \text{płeć} + \text{wiek} + \text{proporcje typów komórek}$$
 
-gdzie zmienną odpowiedzi jest udział odczytów metylowanych w całkowitym pokryciu pozycji. Uzyskane wartości P koryguje się metodą Benjamini-Hochberga, a pozycje o skorygowanej wartości $P < 0{,}01$ uznaje się za różnicowo metylowane [@feng2014dss].
+gdzie zmienną objaśnianą jest udział odczytów metylowanych w całkowitym pokryciu pozycji. Uzyskane wartości P koryguje się metodą Benjamini-Hochberga, a pozycje o skorygowanej wartości $P < 0{,}01$ uznaje się za różnicowo metylowane [@feng2014dss].
 
 Aby zdefiniować amplitudę zmian i wyodrębnić DMS, stosujemy rygorystyczne kryteria obejmujące skorygowaną wartość $P < 0{,}01$ oraz różnicę w średnim poziomie metylacji między dwiema populacjami ($\Delta\beta$) wynoszącą ponad 10% [@fagny2015epigenomic]. Poziom metylacji w tej analizie określa się jako stosunek liczby odczytów metylowanych do całkowitej liczby odczytów (pokrycia) w danej pozycji CpG, reprezentujący wartość beta ($\beta$) [@feng2014dss]. W procesie tym wyodrębniamy nakładające się fragmenty między różnymi zestawami DMS i obliczamy wartości P mierzące prawdopodobieństwo uzyskania tych nakładających się fragmentów przez przypadek, stosując ponowne próbkowanie (resampling) [@fagny2015epigenomic]. Ponieważ poziomy metylacji DNA w docelowych miejscach są silnie skorelowane w obrębie regionów o określonej wielkości wynoszącej około 2000 bp, dla każdej listy DMS losowo pobieramy ponownie taką samą liczbę spośród wszystkich miejsc, biorąc pod uwagę faktyczną odległość chromosomalną między poszczególnymi DMS [@fagny2015epigenomic].
 
