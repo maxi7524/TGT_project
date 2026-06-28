@@ -48,3 +48,6 @@ venv/
 *~
 .vscode/
 .idea/
+
+# local max
+local
