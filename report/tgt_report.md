@@ -40,6 +40,10 @@ link-citations: true
 ***
 
 ## Metodologia
+<!-- Struktura jest taka:
+- fragment
+  - współczesna
+  - antyczna -->
 
 ### Kohorty i liczba próbek
 
@@ -47,15 +51,36 @@ link-citations: true
 
 ***
 
-### Mapy metylacyjne
+### Mapy metylacyjne dla populacji współczesnych 
 
-{{< include parts/methodology/methylation_maps.md >}}
+{{< include parts/methodology/methylation_maps_contemporary.md >}}
 
 ***
 
-### Analiza DMS
+### Mapy metylacyjne dla populacji kopalnych 
 
-{{< include parts/methodology/dms.md >}}
+{{< include parts/methodology/methylation_maps_ancient.md >}}
+
+***
+
+### Symulacja DMS
+<!-- Tutaj jest fragment gdzie sprawdzamy zakres działania naszej metody -->
+
+{{< include parts/methodology/dms_simulation.md >}}
+
+***
+
+### Analiza DMS dla populacji współczesnych 
+<!-- Tutaj jest fragment gdzie znajdujemy DMS -->
+
+{{< include parts/methodology/dms_contemporary.md >}}
+
+***
+
+### Analiza DMS dla populacji kopalnych 
+<!-- Tutaj jest fragment gdzie znajdujemy te obszary -->
+
+{{< include parts/methodology/dms_ancient.md >}}
 
 ***
 
